@@ -7,8 +7,8 @@ const {getGoals,
 // how to use the methode in the controller
 router.get('/',getGoals);
 router.post('/',setGoal);
-router.post('/:id',updateGoal);
-router.post('/:id',deleteGoal);
+router.put('/:id',updateGoal);
+router.delete('/:id',deleteGoal);
 router.put('/:id', (req, res) => {
     res.json({'id': req.params.id});
 });
