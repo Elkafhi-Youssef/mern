@@ -4,12 +4,13 @@ const {getGoals,
     setGoal,
     updateGoal,
     deleteGoal} = require('../controllers/goalController');
+const {protect} = require('../middleware/authMiddleware');
 // how to use the methode in the controller
-router.get('/',getGoals);
-router.post('/',setGoal);
-router.put('/:id',updateGoal);
-router.delete('/:id',deleteGoal);
-router.put('/:id', (req, res) => {
-    res.json({'id': req.params.id});
-});
+router.get('/',protect,getGoals);
+router.post('/',protect,setGoal);
+router.put('/:id', protect,updateGoal);
+router.delete('/:id', protect,deleteGoal);
+// router.put('/:id', (req, res) => {
+//     res.json({'id': req.params.id});
+// });
 module.exports = router;
