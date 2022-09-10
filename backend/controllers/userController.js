@@ -71,12 +71,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
 // @route GET /users/me
 // @access Private
 const getMe = asyncHandler( async (req, res) => {
-    const{name,email,_id}= await User.findById(req.user.id)
-    res.json({
-        name,
-        email,
-        id:_id
-    })
+    res.status(200).json(req.user)
 });
 
 // Genarate token

@@ -1,7 +1,17 @@
 import React from 'react'
 import {FaSignInAlt,FaSignOutAlt,FaUser} from 'react-icons/fa'
-import {Link} from 'react-router-dom'
+import {Link , useNavigate} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import {logout , reset } from  '../features/auth/authSlice'
 function Header() {
+  const navigate  = useNavigate()
+  const dispatch = useDispatch()
+  const {user} = useSelector((state)=>state.auth)
+  const onlogout = ()=>{
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/')
+  }
   return (
     <header className='header'>
       <div>
@@ -13,15 +23,22 @@ function Header() {
         </Link>
       </div>
           <div className="items-center  hidden lg:flex">
-            <button className="self-center px-8 py-3 rounded">
+            {user?(<button className="self-center px-8 py-3 rounded" onClick={onlogout}>
+            
+            <FaSignInAlt  className=' text-red-600 mr-2'/>Logout
+            
+            </button>
+          ):(<button className="self-center px-8 py-3 rounded">
             <Link className=' flex items-center' to= '/login'>
             <FaSignInAlt  className=' text-red-600 mr-2'/>Login
-          </Link>
-          </button>
+            </Link>
+            </button>
+          )}
+            
           <button className="  self-center flex  py-3 rounded">
             <Link className=' flex items-center' to= '/register'>
             <FaSignInAlt className=' text-red-600 mr-2' />Register
-          </Link>
+            </Link>
           </button> 
           </div>
         </div>
